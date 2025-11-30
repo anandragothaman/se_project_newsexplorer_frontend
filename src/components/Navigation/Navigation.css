@@ -1,0 +1,37 @@
+.header__nav-auth {
+  display: flex;
+  gap: 64px;
+}
+.header__nav-list {
+  display: flex;
+  gap: 76px;
+  margin: 30px 0 0 0;
+  list-style: none;
+}
+.header__nav-link {
+  font-family: "Roboto Slab Regular";
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 100%;
+  color: #b6bcbf;
+  text-decoration: none;
+  padding: 0 0 26px 0;
+}
+.header__nav-link.active {
+  border-bottom: 3px solid #ffffff;
+  color: #ffffff;
+  padding: 0 0 22px 0;
+}
+.header__auth-button {
+  font-family: "Roboto Slab Bold";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 100%;
+  color: #ffffff;
+  background: none;
+  border: 1px solid #ffffff;
+  border-radius: 100px;
+  cursor: pointer;
+  padding: 12px 50px 12px 50px;
+  margin: 19px 0 13px 0;
+}

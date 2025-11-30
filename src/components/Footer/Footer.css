@@ -1,0 +1,27 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Roboto Slab Regular";
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  padding: 32px 104px 26px 104px;
+  background-color: #fff;
+}
+.footer__author {
+  margin: 0;
+  color: #b6bcbf;
+}
+.footer__copyright {
+  margin: 0;
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+.footer__copyright li:last-child {
+  margin-left: -20px;
+}
+.footer__copyright a {
+  color: #1a1b22;
+  text-decoration: none;
+}
