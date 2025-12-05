@@ -10,6 +10,7 @@ function NewsCard() {
               className="news-card__image"
               src="../../src/assets/card_image1.svg"
             />{" "}
+            <span className="news-card__bookmark"></span>
           </div>
           <div className="news-card__content">
             <p className="news-card__date">October 20, 2023</p>
@@ -27,6 +28,7 @@ function NewsCard() {
               className="news-card__image"
               src="../../src/assets/card_image1.svg"
             />{" "}
+            <span className="news-card__bookmark"></span>
           </div>
           <div className="news-card__content">
             <p className="news-card__date">October 20, 2023</p>
@@ -44,6 +46,7 @@ function NewsCard() {
               className="news-card__image"
               src="../../src/assets/card_image1.svg"
             />{" "}
+            <span className="news-card__bookmark"></span>
           </div>
           <div className="news-card__content">
             <p className="news-card__date">October 20, 2023</p>

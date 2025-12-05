@@ -1,0 +1,136 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0000004d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+.modal_opened {
+  visibility: visible;
+}
+.modal__title {
+  margin: 0 0 22px 0;
+  font-family: "Roboto Slab Bold";
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+.modal__content {
+  background-color: #fff;
+  position: relative;
+  padding: 28px 28px 36px;
+  max-width: 430px;
+  box-sizing: border-box;
+  width: 100%;
+  font-family: "Cabinet Grotesk Medium";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  border-radius: 20px;
+}
+.modal__close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+.modal__label {
+  margin-bottom: 24px;
+}
+.modal__label_type_radio {
+  margin-bottom: 8px;
+  color: #00000080;
+}
+.modal__label_type_radio span {
+  cursor: pointer;
+}
+:checked + span {
+  color: #000;
+}
+.modal__input {
+  display: block;
+  border: none;
+  border-bottom: 1px solid #00000026;
+  width: 100%;
+  outline: none;
+  padding-bottom: 10px;
+  font-family: "Inter Regular";
+  font-weight: 400;
+  font-size: 14px;
+  color: #000;
+}
+.modal__input::placeholder {
+  color: #ccc;
+  font-family: "Inter Regular";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0;
+}
+.modal__radio-buttons {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+.modal__radio-input {
+  cursor: pointer;
+}
+.modal__legend {
+  margin-bottom: 12px;
+}
+.modal__submit {
+  min-width: 358px;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 100px;
+  cursor: pointer;
+  line-height: 24px;
+  padding: 20px 0;
+  font-family: "Roboto Slab Medium";
+  font-weight: 500;
+  font-size: 18px;
+  background-color: #2f71e5;
+  color: #fff;
+}
+.modal__submit:disabled {
+  background-color: #e6e8eb;
+  color: #b6bcbf;
+  cursor: default;
+}
+.modal__line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 15px;
+}
+.modal__login {
+  margin: 0 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: "Inter Regular";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0;
+  text-align: center;
+}
+.modal__login-text {
+  cursor: pointer;
+  color: #2f71e5;
+}

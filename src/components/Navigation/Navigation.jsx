@@ -1,6 +1,6 @@
 import "./Navigation.css";
 import { NavLink } from "react-router-dom";
-function Navigation() {
+function Navigation({ handleLogInClick, isLogin, isRegister = "true" }) {
   return (
     <section className="header__nav-auth">
       <nav>
@@ -17,7 +17,21 @@ function Navigation() {
           </li>
         </ul>
       </nav>
-      <button className="header__auth-button">Sign In</button>
+      {isLogin && !isRegister && (
+        <button onClick={handleLogInClick} className="header__auth-button">
+          Sign In
+        </button>
+      )}
+      {isRegister && !isLogin && (
+        <button onClick={handleLogInClick} className="header__auth-button">
+          Elise{" "}
+          <img
+            src="../../src/assets/logout.svg"
+            alt="arrow right"
+            className="header__logout-button"
+          />
+        </button>
+      )}
     </section>
   );
 }
