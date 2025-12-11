@@ -1,6 +1,12 @@
 import "./Navigation.css";
 import { NavLink } from "react-router-dom";
-function Navigation({ handleLogInClick, isLogin, isRegister = "true" }) {
+function Navigation({
+  handleLogInClick,
+  isLogin,
+  isRegister,
+  isSavedArticle,
+  handleLogOutClick,
+}) {
   return (
     <section className="header__nav-auth">
       <nav>
@@ -11,9 +17,11 @@ function Navigation({ handleLogInClick, isLogin, isRegister = "true" }) {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/saved-news" className="header__nav-link">
-              Saved Articles
-            </NavLink>
+            {!isLogin && isRegister && isSavedArticle && (
+              <NavLink to="/saved-news" className="header__nav-link">
+                Saved Articles
+              </NavLink>
+            )}
           </li>
         </ul>
       </nav>
@@ -23,13 +31,8 @@ function Navigation({ handleLogInClick, isLogin, isRegister = "true" }) {
         </button>
       )}
       {isRegister && !isLogin && (
-        <button onClick={handleLogInClick} className="header__auth-button">
-          Elise{" "}
-          <img
-            src="../../src/assets/logout.svg"
-            alt="arrow right"
-            className="header__logout-button"
-          />
+        <button onClick={handleLogOutClick} className="header__auth-button">
+          Elise <span className="header__logout-button"></span>
         </button>
       )}
     </section>

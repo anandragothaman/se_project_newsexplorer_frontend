@@ -9,12 +9,20 @@ export default function RegisterModal({
   handleLogInClick,
 }) {
   const [name, setName] = useState("");
-  const [avatar, setAvatarUrl] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+    if (newEmail === "") {
+      setEmailError("Email cannot be empty.");
+    } else if (!validateEmail(newEmail)) {
+      setEmailError("Invalid email address.");
+    } else {
+      setEmailError("");
+    }
   };
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -22,29 +30,36 @@ export default function RegisterModal({
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
-  const handleAvatarUrlChange = (e) => {
-    setAvatarUrl(e.target.value);
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegisterModalSubmit({ email, password, name, avatar });
+    onRegisterModalSubmit({ email, password, name });
   };
+  const validateEmail = (email) => {
+    const emailRegex =
+      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
+    return emailRegex.test(email);
+  };
+  const isEmailValid = validateEmail(email);
+  const isPasswordValid = password.length >= 1;
+  const isNameValid = name.length >= 1;
+  const isFormValid = isEmailValid && isPasswordValid && isNameValid;
   useEffect(() => {
     setEmail("");
     setPassword("");
     setName("");
-    setAvatarUrl("");
   }, [isOpen]);
   return (
     <ModalWithForm
       buttonText="Sign up"
       isLogin={false}
       isRegister={true}
+      isRegisterSuccess={false}
       title="Sign up"
       isOpen={isOpen}
       onClose={onClose}
       handleLogInClick={handleLogInClick}
       onSubmit={handleSubmit}
+      isFormValid={isFormValid}
     >
       <label htmlFor="email" className="modal__label">
         Email{" "}
@@ -56,6 +71,7 @@ export default function RegisterModal({
           onChange={handleEmailChange}
           value={email}
         />
+        {emailError && <p className="modal_error">{emailError}</p>}
       </label>
       <label htmlFor="password" className="modal__label">
         Password{" "}
@@ -77,17 +93,6 @@ export default function RegisterModal({
           placeholder="Name"
           onChange={handleNameChange}
           value={name}
-        />
-      </label>
-      <label htmlFor="avatar" className="modal__label">
-        Avatar URL{" "}
-        <input
-          type="url"
-          className="modal__input"
-          id="avatar"
-          placeholder="Avatar URL"
-          onChange={handleAvatarUrlChange}
-          value={avatar}
         />
       </label>
     </ModalWithForm>

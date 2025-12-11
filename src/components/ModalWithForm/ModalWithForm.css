@@ -134,3 +134,18 @@
   cursor: pointer;
   color: #2f71e5;
 }
+.modal__signin {
+  margin: 0;
+}
+.modal__signin-text {
+  font-family: "Inter Regular";
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  cursor: pointer;
+  color: #2f71e5;
+}
+.modal_error {
+  color: red;
+}

@@ -5,13 +5,14 @@ function ModalWithForm({
   buttonText,
   isLogin,
   isRegister,
-  isEditProfile,
+  isRegisterSuccess,
   title,
   isOpen,
   onClose,
   onSubmit,
   handleLogInClick,
   handleSignUpClick,
+  isFormValid,
 }) {
   return (
     <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
@@ -22,27 +23,46 @@ function ModalWithForm({
         </button>
         <form onSubmit={onSubmit} className="modal__form">
           {children}
-          <div className="modal__line">
-            <button type="submit" className="modal__submit" disabled>
-              {buttonText}
-            </button>{" "}
-            {isLogin && !isRegister && !isEditProfile && (
-              <p className="modal__login">
-                or{" "}
-                <span className="modal__login-text" onClick={handleSignUpClick}>
-                  Sign up
-                </span>
-              </p>
-            )}
-            {isRegister && !isLogin && !isEditProfile && (
-              <p className="modal__login">
-                or{" "}
-                <span className="modal__login-text" onClick={handleLogInClick}>
-                  Sign in
-                </span>
-              </p>
-            )}
-          </div>
+          {!isRegisterSuccess && (
+            <div className="modal__line">
+              <button
+                type="submit"
+                className="modal__submit"
+                disabled={!isFormValid}
+              >
+                {buttonText}
+              </button>{" "}
+              {isLogin && !isRegister && (
+                <p className="modal__login">
+                  or{" "}
+                  <span
+                    className="modal__login-text"
+                    onClick={handleSignUpClick}
+                  >
+                    Sign up
+                  </span>
+                </p>
+              )}
+              {isRegister && !isLogin && (
+                <p className="modal__login">
+                  or{" "}
+                  <span
+                    className="modal__login-text"
+                    onClick={handleLogInClick}
+                  >
+                    Sign in
+                  </span>
+                </p>
+              )}
+            </div>
+          )}
+          {isRegisterSuccess && (
+            <p className="modal__signin">
+              <span className="modal__signin-text" onClick={handleLogInClick}>
+                Sign in
+              </span>
+            </p>
+          )}
         </form>
       </div>
     </div>

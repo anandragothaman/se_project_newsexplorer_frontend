@@ -37,6 +37,12 @@
   position: relative;
 }
 .header__logout-button {
+  background: url("../../assets/logout-light.svg") no-repeat;
   position: absolute;
   right: 10px;
+  height: 24px;
+  width: 24px;
+}
+.header_saved-news .header__logout-button {
+  background: url("../../assets/logout.svg") no-repeat;
 }
