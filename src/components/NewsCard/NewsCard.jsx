@@ -1,65 +1,40 @@
 import "./NewsCard.css";
-function NewsCard() {
+function NewsCard({ articles = [], visibleCount, onShowMore }) {
+  const visibleArticles = articles.slice(0, visibleCount);
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(date);
+  }
   return (
     <section className="news-card-section">
       <h2 className="news-card-section-title">Search Results</h2>
       <section className="news-card">
-        <div className="news-card__list">
-          <div className="news-card__image-placeholder">
-            <img
-              className="news-card__image"
-              src="../../src/assets/card_image1.svg"
-            />{" "}
-            <span className="news-card__bookmark"></span>
+        {visibleArticles.map((article, i) => (
+          <div key={i} className="news-card__list">
+            <div className="news-card__image-placeholder">
+              <img className="news-card__image" src={article.urlToImage} />{" "}
+              <span className="news-card__bookmark"></span>
+            </div>
+            <div className="news-card__content">
+              <p className="news-card__date">
+                {formatDate(article.publishedAt)}
+              </p>
+              <h2 className="news-card__title">{article.title}</h2>
+              <p className="news-card__description">{article.description}</p>
+              <p className="news-card__source">{article.author}</p>
+            </div>
           </div>
-          <div className="news-card__content">
-            <p className="news-card__date">October 20, 2023</p>
-            <h2 className="news-card__title">Sample News Article Title</h2>
-            <p className="news-card__description">
-              This is a brief description of the news article. It provides an
-              overview of the content to entice readers to click and read more.
-            </p>
-            <p className="news-card__source">Source Name</p>
-          </div>
-        </div>
-        <div className="news-card__list">
-          <div className="news-card__image-placeholder">
-            <img
-              className="news-card__image"
-              src="../../src/assets/card_image1.svg"
-            />{" "}
-            <span className="news-card__bookmark"></span>
-          </div>
-          <div className="news-card__content">
-            <p className="news-card__date">October 20, 2023</p>
-            <h2 className="news-card__title">Sample News Article Title</h2>
-            <p className="news-card__description">
-              This is a brief description of the news article. It provides an
-              overview of the content to entice readers to click and read more.
-            </p>
-            <p className="news-card__source">Source Name</p>
-          </div>
-        </div>
-        <div className="news-card__list">
-          <div className="news-card__image-placeholder">
-            <img
-              className="news-card__image"
-              src="../../src/assets/card_image1.svg"
-            />{" "}
-            <span className="news-card__bookmark"></span>
-          </div>
-          <div className="news-card__content">
-            <p className="news-card__date">October 20, 2023</p>
-            <h2 className="news-card__title">Sample News Article Title</h2>
-            <p className="news-card__description">
-              This is a brief description of the news article. It provides an
-              overview of the content to entice readers to click and read more.
-            </p>
-            <p className="news-card__source">Source Name</p>
-          </div>
-        </div>
+        ))}
       </section>
-      <button className="news-card__save-button">Show more</button>
+      {visibleCount < articles.length && (
+        <button className="news-card__save-button" onClick={onShowMore}>
+          Show more
+        </button>
+      )}
     </section>
   );
 }

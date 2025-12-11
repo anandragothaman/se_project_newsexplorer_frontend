@@ -24,6 +24,11 @@ function App() {
   const [userName, setUserName] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState("");
   const [isRegistered, setIsRegistered] = useState("");
+  const [articles, setArticles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [noResults, setNoResults] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(3);
+
   const handleLogInClick = () => {
     setActiveModal("login");
   };
@@ -74,6 +79,32 @@ function App() {
       console.error("Register error:", error);
     }
   };
+
+  const handleSearch = async (query) => {
+    setIsLoading(true);
+    setNoResults(false);
+
+    try {
+      const response = await fetch(
+        `https://newsapi.org/v2/everything?q=${query}&apiKey=bab9d4b072044898a173155e41c12cbe`
+      );
+
+      const data = await response.json();
+
+      if (data.articles && data.articles.length > 0) {
+        setArticles(data.articles);
+        setVisibleCount(3);
+      } else {
+        setArticles([]);
+        setNoResults(true);
+      }
+    } catch (error) {
+      console.error("Error fetching news:", error);
+    }
+
+    setIsLoading(false);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -108,13 +139,19 @@ function App() {
                     handleLogOutClick={handleLogOutClick}
                   />
                   <section className="header__underline">
-                    <SearchForm />
+                    <SearchForm onSearch={handleSearch} />
                   </section>
                 </header>
                 <main>
-                  {/* <Preloader /> */}
-                  {/* <NoData /> */}
-                  <NewsCard />
+                  {isLoading && <Preloader />}
+                  {noResults && <NoData />}
+                  {!isLoading && !noResults && articles.length > 0 && (
+                    <NewsCard
+                      articles={articles}
+                      visibleCount={visibleCount}
+                      onShowMore={() => setVisibleCount((prev) => prev + 3)}
+                    />
+                  )}
                   <About />
                 </main>
               </>
