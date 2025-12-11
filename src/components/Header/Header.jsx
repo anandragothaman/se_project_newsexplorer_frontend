@@ -1,7 +1,13 @@
 import { NavLink } from "react-router-dom";
 import "./Header.css";
 import Navigation from "../Navigation/Navigation";
-function Header({ isLogin, isRegister, handleLogInClick, handleLogOutClick }) {
+function Header({
+  userName,
+  isLogin,
+  isRegister,
+  handleLogInClick,
+  handleLogOutClick,
+}) {
   return (
     <>
       <section className="header__logo">
@@ -11,6 +17,7 @@ function Header({ isLogin, isRegister, handleLogInClick, handleLogOutClick }) {
           </NavLink>
         </h1>
         <Navigation
+          userName={userName}
           isLogin={isLogin}
           isRegister={isRegister}
           handleLogOutClick={handleLogOutClick}

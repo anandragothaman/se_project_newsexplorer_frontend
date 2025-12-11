@@ -2,6 +2,7 @@ import "./Navigation.css";
 import { NavLink } from "react-router-dom";
 function Navigation({
   handleLogInClick,
+  userName,
   isLogin,
   isRegister,
   isSavedArticle,
@@ -32,7 +33,7 @@ function Navigation({
       )}
       {isRegister && !isLogin && (
         <button onClick={handleLogOutClick} className="header__auth-button">
-          Elise <span className="header__logout-button"></span>
+          {userName} <span className="header__logout-button"></span>
         </button>
       )}
     </section>

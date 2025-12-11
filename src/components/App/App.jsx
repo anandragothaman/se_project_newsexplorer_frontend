@@ -16,17 +16,22 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import RegisterSuccessModal from "../RegisterSuccessModal/RegisterSuccessModal";
 import ArticleDetails from "../ArticleDetails/ArticleDetails";
 
+//api imports
+import { authorize, checkToken } from "../../utils/auth";
+
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [userName, setUserName] = useState("");
-  const [isLogin, setIsLogIn] = useState("");
-  const [isRegister, setIsRegister] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState("");
+  const [isRegistered, setIsRegistered] = useState("");
   const handleLogInClick = () => {
     setActiveModal("login");
   };
   const handleLogOutClick = () => {
-    setIsLogIn(true);
-    setIsRegister(false);
+    localStorage.removeItem("token");
+    setIsLoggingIn(true);
+    setIsRegistered(false);
+    setUserName("");
   };
   const closeActiveModal = () => {
     setActiveModal("");
@@ -34,40 +39,57 @@ function App() {
   const handleSignUpClick = () => {
     setActiveModal("register");
   };
-  const handleLoginModalSubmit = ({ email, password }) => {
-    setIsLogIn(false);
-    setIsRegister(true);
-    closeActiveModal();
-    // auth
-    //   .signIn({ email, password })
-    //   .then((data) => {
-    //     if (data.token) {
-    //       setToken(data.token);
-    //       setIsLoggedIn(true);
-    //       const redirectPath = location.state?.from?.pathname || "/";
-    //       navigate(redirectPath);
-    //       closeActiveModal();
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("Failed to signin:", error);
-    //   });
+
+  const handleLoginModalSubmit = async ({ email, password }) => {
+    try {
+      const res = await authorize(email, password);
+
+      if (!res.token) {
+        console.log("Login failed");
+        return;
+      }
+
+      // save token
+      localStorage.setItem("token", res.token);
+
+      // fetch user data
+      const userResp = await checkToken(res.token);
+      setUserName(userResp.data.name);
+
+      // Update your UI login state
+      setIsLoggingIn(false);
+      setIsRegistered(true);
+
+      closeActiveModal();
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
+
   const handleRegisterModalSubmit = ({ email, password, name }) => {
-    console.log("Registering user:", { email, password, name });
-    setUserName(name);
-    setActiveModal("registerSuccess");
-    // auth
-    //   .signUp({ email, password, name, avatar })
-    //   .then((data) => {
-    //     handleLoginModalSubmit({ email, password });
-    //   })
-    //   .catch((error) => {
-    //     console.error("Failed to register:", error);
-    //   });
+    try {
+      setUserName(name);
+      setActiveModal("registerSuccess");
+    } catch (error) {
+      console.error("Register error:", error);
+    }
   };
   useEffect(() => {
-    setIsLogIn(true);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setIsLoggingIn(true);
+      return;
+    }
+
+    checkToken(token)
+      .then((res) => {
+        setUserName(res.data.name);
+        setIsLoggingIn(false);
+        setIsRegistered(true);
+      })
+      .catch(() => {
+        setIsLoggingIn(true);
+      });
   }, []);
   return (
     <div className="page">
@@ -79,8 +101,9 @@ function App() {
               <>
                 <header className="header">
                   <Header
-                    isLogin={isLogin}
-                    isRegister={isRegister}
+                    userName={userName}
+                    isLogin={isLoggingIn}
+                    isRegister={isRegistered}
                     handleLogInClick={handleLogInClick}
                     handleLogOutClick={handleLogOutClick}
                   />
@@ -103,8 +126,8 @@ function App() {
               <>
                 <header className="header header_saved-news">
                   <Header
-                    isLogin={isLogin}
-                    isRegister={isRegister}
+                    isLogin={isLoggingIn}
+                    isRegister={isRegistered}
                     handleLogInClick={handleLogInClick}
                   />
                   <section className="header__underline">
