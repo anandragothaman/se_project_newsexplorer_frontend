@@ -1,17 +1,23 @@
 .news-card {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-}
-.news-card-section {
-  display: flex;
   flex-direction: column;
   gap: 64px;
   background-color: #f5f6f7;
   padding: 80px 0 80px 104px;
 }
-.news-card-section-title {
+.news-card__section {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.news-card__container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+.news-card__title {
   font-family: "Roboto Slab Regular";
   font-size: 40px;
   font-weight: 400;
@@ -70,6 +76,51 @@
   padding: 10px 13px;
   border-radius: 8px;
   cursor: pointer;
+}
+.news-card__delete-bookmark {
+  background: url("../../assets/delete.svg") no-repeat center;
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  width: 24px;
+  background-color: #fff;
+  height: 24px;
+  padding: 10px 13px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.news-card__delete-bookmark:hover {
+  background: url("../../assets/delete-highlight.svg") no-repeat center;
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  width: 24px;
+  background-color: #fff;
+  height: 24px;
+  padding: 10px 13px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.news-card__bookmark-tooltip {
+  position: absolute;
+  top: 25px;
+  right: 80px;
+  background: #fff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-family: "Roboto Medium";
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  visibility: hidden;
+  opacity: 0;
+}
+.news-card__bookmark-wrapper:hover .news-card__bookmark-tooltip {
+  visibility: visible;
+  opacity: 1;
 }
 .news-card__title {
   font-family: "Roboto Slab Regular";

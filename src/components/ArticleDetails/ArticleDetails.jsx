@@ -1,10 +1,10 @@
 import "./ArticleDetails.css";
-function ArticleDetails() {
+function ArticleDetails({ articleCount, userName }) {
   return (
     <div className="header__article-details">
       <h2 className="header__article-details__title">Saved articles</h2>
       <p className="header__article-details__saved-count">
-        Elise, you have 5 saved articles
+        {userName}, you have {articleCount} saved articles
       </p>
       <p className="header__article-details__keywords">
         By keywords:{" "}

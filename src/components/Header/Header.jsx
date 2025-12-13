@@ -7,6 +7,7 @@ function Header({
   isRegister,
   handleLogInClick,
   handleLogOutClick,
+  isSavedArticle,
 }) {
   return (
     <>
@@ -17,6 +18,7 @@ function Header({
           </NavLink>
         </h1>
         <Navigation
+          isSavedArticle={isSavedArticle}
           userName={userName}
           isLogin={isLogin}
           isRegister={isRegister}

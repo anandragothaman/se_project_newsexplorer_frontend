@@ -18,7 +18,7 @@ function Navigation({
             </NavLink>
           </li>
           <li>
-            {!isLogin && isRegister && isSavedArticle && (
+            {!isLogin && isSavedArticle && (
               <NavLink to="/saved-news" className="header__nav-link">
                 Saved Articles
               </NavLink>

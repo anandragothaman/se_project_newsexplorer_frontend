@@ -3,11 +3,12 @@ import "./App.css";
 
 //component imports
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import About from "../About/About";
 import Footer from "../Footer/Footer";
+import NewsCardList from "../NewsCardList/NewsCardList";
 import NewsCard from "../NewsCard/NewsCard";
 import Preloader from "../Preloader/Preloader";
 import NoData from "../NoData/NoData";
@@ -18,16 +19,20 @@ import ArticleDetails from "../ArticleDetails/ArticleDetails";
 
 //api imports
 import { authorize, checkToken } from "../../utils/auth";
+import { getItems, saveArticle, deleteArticle } from "../../utils/api";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [userName, setUserName] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState("");
   const [isRegistered, setIsRegistered] = useState("");
-  const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [visibleCount, setVisibleCount] = useState(3);
+  const [searchArticles, setSearchArticles] = useState([]);
+  const visibleArticles = searchArticles.slice(0, visibleCount);
+  const [savedArticles, setSavedArticles] = useState([]);
+  const navigate = useNavigate();
 
   const handleLogInClick = () => {
     setActiveModal("login");
@@ -37,6 +42,7 @@ function App() {
     setIsLoggingIn(true);
     setIsRegistered(false);
     setUserName("");
+    navigate("/");
   };
   const closeActiveModal = () => {
     setActiveModal("");
@@ -92,10 +98,10 @@ function App() {
       const data = await response.json();
 
       if (data.articles && data.articles.length > 0) {
-        setArticles(data.articles);
+        setSearchArticles(data.articles);
         setVisibleCount(3);
       } else {
-        setArticles([]);
+        setSearchArticles([]);
         setNoResults(true);
       }
     } catch (error) {
@@ -103,6 +109,40 @@ function App() {
     }
 
     setIsLoading(false);
+  };
+
+  const handleSaveArticle = async (article) => {
+    if (isLoggingIn) {
+      setActiveModal("login");
+      return;
+    }
+    const alreadySaved = savedArticles.some(
+      (saved) => saved.url === article.url
+    );
+
+    if (alreadySaved) {
+      console.log("Article already saved");
+      return;
+    }
+
+    try {
+      const savedArticle = await saveArticle(article);
+      setSavedArticles((prev) => [...prev, savedArticle]);
+    } catch (error) {
+      console.error("Failed to save article:", error);
+    }
+  };
+
+  const handleDeleteArticle = async (articleId) => {
+    try {
+      await deleteArticle(articleId);
+
+      setSavedArticles((prev) =>
+        prev.filter((article) => article._id !== articleId)
+      );
+    } catch (error) {
+      console.error("Failed to delete article:", error);
+    }
   };
 
   useEffect(() => {
@@ -122,6 +162,14 @@ function App() {
         setIsLoggingIn(true);
       });
   }, []);
+
+  useEffect(() => {
+    if (!isLoggingIn) {
+      getItems().then((items) => {
+        setSavedArticles(items);
+      });
+    }
+  }, [!isLoggingIn]);
   return (
     <div className="page">
       <div className="page__content">
@@ -132,6 +180,7 @@ function App() {
               <>
                 <header className="header">
                   <Header
+                    isSavedArticle={savedArticles.length > 0}
                     userName={userName}
                     isLogin={isLoggingIn}
                     isRegister={isRegistered}
@@ -145,12 +194,25 @@ function App() {
                 <main>
                   {isLoading && <Preloader />}
                   {noResults && <NoData />}
-                  {!isLoading && !noResults && articles.length > 0 && (
-                    <NewsCard
-                      articles={articles}
-                      visibleCount={visibleCount}
-                      onShowMore={() => setVisibleCount((prev) => prev + 3)}
-                    />
+                  {!isLoading && !noResults && searchArticles.length > 0 && (
+                    <section className="news-card">
+                      <h2 className="news-card__title">Search Results</h2>
+                      <NewsCardList
+                        articles={visibleArticles}
+                        isSavedPage={false}
+                        isLogin={isLoggingIn}
+                        onSave={handleSaveArticle}
+                        visibleCount={visibleCount}
+                      />
+                      {visibleCount < searchArticles.length && (
+                        <button
+                          className="news-card__save-button"
+                          onClick={() => setVisibleCount((prev) => prev + 3)}
+                        >
+                          Show more
+                        </button>
+                      )}
+                    </section>
                   )}
                   <About />
                 </main>
@@ -163,16 +225,29 @@ function App() {
               <>
                 <header className="header header_saved-news">
                   <Header
+                    isSavedArticle={savedArticles.length > 0}
+                    userName={userName}
                     isLogin={isLoggingIn}
                     isRegister={isRegistered}
                     handleLogInClick={handleLogInClick}
+                    handleLogOutClick={handleLogOutClick}
                   />
                   <section className="header__underline">
-                    <ArticleDetails />
+                    <ArticleDetails
+                      articleCount={savedArticles.length}
+                      userName={userName}
+                    />
                   </section>
                 </header>
                 <main>
-                  <NewsCard />
+                  <section className="news-card">
+                    <NewsCardList
+                      articles={savedArticles}
+                      isSavedPage={true}
+                      isLogin={isLoggingIn}
+                      onDelete={handleDeleteArticle}
+                    />
+                  </section>
                 </main>
               </>
             }
