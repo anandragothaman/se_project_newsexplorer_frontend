@@ -3,8 +3,8 @@ import "./About.css";
 function About() {
   return (
     <section className="author">
-      <div className="author-avatar"></div>
-      <div className="author-info">
+      <div className="author__avatar"></div>
+      <div className="author__info">
         <h2 className="author__title">About the Author</h2>
         <div className="author__bio">
           <p className="author__description">

@@ -18,8 +18,10 @@ function NewsCardList({
           const isSaved =
             !isSavedPage &&
             savedArticles.some((saved) => saved.url === article.url);
+          const key = isSavedPage ? article._id : article.url;
           return (
             <NewsCard
+              key={key}
               article={article}
               isSavedPage={isSavedPage}
               isSaved={isSaved}

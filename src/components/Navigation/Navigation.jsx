@@ -17,13 +17,13 @@ function Navigation({
               Home
             </NavLink>
           </li>
-          <li>
-            {!isLoginVisible && isSavedArticle && (
+          {!isLoginVisible && isSavedArticle && (
+            <li>
               <NavLink to="/saved-news" className="header__nav-link">
                 Saved Articles
               </NavLink>
-            )}
-          </li>
+            </li>
+          )}
         </ul>
       </nav>
       {isLoginVisible && (

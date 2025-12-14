@@ -15,10 +15,12 @@ import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import RegisterSuccessModal from "../RegisterSuccessModal/RegisterSuccessModal";
 import ArticleDetails from "../ArticleDetails/ArticleDetails";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 //api imports
 import { authorize, checkToken } from "../../utils/auth";
 import { getItems, saveArticle, deleteArticle } from "../../utils/api";
+import AppContext from "../Contexts/AppContext";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -26,6 +28,8 @@ function App() {
   const [isLoginVisible, setIsLoginVisible] = useState("");
   const [isRegisterVisible, setIsRegisterVisible] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [visibleCount, setVisibleCount] = useState(3);
   const [searchArticles, setSearchArticles] = useState([]);
@@ -43,6 +47,8 @@ function App() {
     setIsLoginVisible(true);
     setIsRegisterVisible(true);
     setUserName("");
+    setIsLoggedIn(false);
+    setSavedArticles([]);
   };
   const closeActiveModal = () => {
     setActiveModal("");
@@ -56,18 +62,18 @@ function App() {
       const res = await authorize(email, password);
 
       if (!res.token) {
-        console.log("Login failed");
+        setIsLoggedIn(false);
         return;
       }
 
       localStorage.setItem("token", res.token);
 
       const userResp = await checkToken(res.token);
-      setUserName(userResp.data.name);
+      setUserName(userName ? userName : userResp.data.name);
 
       setIsLoginVisible(false);
       setIsRegisterVisible(true);
-
+      setIsLoggedIn(true);
       closeActiveModal();
     } catch (error) {
       console.error("Login error:", error);
@@ -110,7 +116,7 @@ function App() {
   };
 
   const handleSaveArticle = async (article) => {
-    if (isLoginVisible) {
+    if (!isLoggedIn) {
       setActiveModal("login");
       return;
     }
@@ -156,17 +162,25 @@ function App() {
     const token = localStorage.getItem("token");
     if (!token) {
       setIsLoginVisible(true);
+      setIsLoggedIn(false);
+      setIsAuthChecked(true);
       return;
     }
 
     checkToken(token)
       .then((res) => {
-        setUserName(res.data.name);
+        setUserName(userName ? userName : res.data.name);
         setIsLoginVisible(false);
         setIsRegisterVisible(true);
+        setIsLoggedIn(true);
       })
       .catch(() => {
         setIsLoginVisible(true);
+        setIsLoggedIn(false);
+        localStorage.removeItem("token");
+      })
+      .finally(() => {
+        setIsAuthChecked(true);
       });
   }, []);
 
@@ -178,105 +192,107 @@ function App() {
     }
   }, [!isLoginVisible]);
   return (
-    <div className="page">
-      <div className="page__content">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <header className="header">
-                  <Header
-                    isSavedArticle={savedArticles.length > 0}
-                    userName={userName}
-                    isLoginVisible={isLoginVisible}
-                    isRegisterVisible={isRegisterVisible}
-                    handleLogInClick={handleLogInClick}
-                    handleLogOutClick={handleLogOutClick}
-                  />
-                  <section className="header__underline">
-                    <SearchForm onSearch={handleSearch} />
-                  </section>
-                </header>
-                <main>
-                  {isLoading && <Preloader />}
-                  {noResults && <NoData />}
-                  {!isLoading && !noResults && searchArticles.length > 0 && (
-                    <section className="news-card">
-                      <h2 className="news-card__title">Search Results</h2>
-                      <NewsCardList
-                        articles={visibleArticles}
+    <AppContext.Provider value={{ isLoggedIn, isAuthChecked }}>
+      <div className="page">
+        <div className="page__content">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <header className="header">
+                    <Header
+                      isSavedArticle={savedArticles.length > 0}
+                      userName={userName}
+                      isLoginVisible={isLoginVisible}
+                      isRegisterVisible={isRegisterVisible}
+                      handleLogInClick={handleLogInClick}
+                      handleLogOutClick={handleLogOutClick}
+                    />
+                    <section className="header__underline">
+                      <SearchForm onSearch={handleSearch} />
+                    </section>
+                  </header>
+                  <main>
+                    {isLoading && <Preloader />}
+                    {noResults && <NoData />}
+                    {!isLoading && !noResults && searchArticles.length > 0 && (
+                      <section className="news-card">
+                        <h2 className="news-card__heading">Search Results</h2>
+                        <NewsCardList
+                          articles={visibleArticles}
+                          savedArticles={savedArticles}
+                          searchArticles={searchArticles}
+                          isSavedPage={false}
+                          isLoginVisible={isLoginVisible}
+                          onSave={handleSaveArticle}
+                          visibleCount={visibleCount}
+                          setVisibleCount={setVisibleCount}
+                        />
+                      </section>
+                    )}
+                    <About />
+                  </main>
+                </>
+              }
+            />
+            <Route
+              path="/saved-news"
+              element={
+                <ProtectedRoute>
+                  <header className="header header_saved-news">
+                    <Header
+                      isSavedArticle={savedArticles.length > 0}
+                      userName={userName}
+                      isLoginVisible={isLoginVisible}
+                      isRegisterVisible={isRegisterVisible}
+                      handleLogInClick={handleLogInClick}
+                      handleLogOutClick={handleLogOutClick}
+                    />
+                    <section className="header__underline">
+                      <ArticleDetails
                         savedArticles={savedArticles}
-                        searchArticles={searchArticles}
-                        isSavedPage={false}
-                        isLoginVisible={isLoginVisible}
-                        onSave={handleSaveArticle}
-                        visibleCount={visibleCount}
-                        setVisibleCount={setVisibleCount}
+                        articleCount={savedArticles.length}
+                        userName={userName}
                       />
                     </section>
-                  )}
-                  <About />
-                </main>
-              </>
-            }
-          />
-          <Route
-            path="/saved-news"
-            element={
-              <>
-                <header className="header header_saved-news">
-                  <Header
-                    isSavedArticle={savedArticles.length > 0}
-                    userName={userName}
-                    isLoginVisible={isLoginVisible}
-                    isRegisterVisible={isRegisterVisible}
-                    handleLogInClick={handleLogInClick}
-                    handleLogOutClick={handleLogOutClick}
-                  />
-                  <section className="header__underline">
-                    <ArticleDetails
-                      savedArticles={savedArticles}
-                      articleCount={savedArticles.length}
-                      userName={userName}
-                    />
-                  </section>
-                </header>
-                <main>
-                  <section className="news-card">
-                    <NewsCardList
-                      articles={savedArticles}
-                      isSavedPage={true}
-                      isLoginVisible={isLoginVisible}
-                      onDelete={handleDeleteArticle}
-                    />
-                  </section>
-                </main>
-              </>
-            }
-          />
-        </Routes>
-        <Footer />
+                  </header>
+                  <main>
+                    <section className="news-card">
+                      <NewsCardList
+                        articles={savedArticles}
+                        isSavedPage={true}
+                        isLoginVisible={isLoginVisible}
+                        onDelete={handleDeleteArticle}
+                      />
+                    </section>
+                  </main>
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+          <Footer />
+        </div>
+        <RegisterModal
+          isOpen={activeModal === "register"}
+          onClose={closeActiveModal}
+          onRegisterModalSubmit={handleRegisterModalSubmit}
+          handleLogInClick={handleLogInClick}
+        />
+        <LoginModal
+          isOpen={activeModal === "login"}
+          onClose={closeActiveModal}
+          onLoginModalSubmit={handleLoginModalSubmit}
+          handleSignUpClick={handleSignUpClick}
+        />
+        <RegisterSuccessModal
+          isOpen={activeModal === "registerSuccess"}
+          onClose={closeActiveModal}
+          onRegisterModalSubmit={handleRegisterModalSubmit}
+          handleLogInClick={handleLogInClick}
+        />
       </div>
-      <RegisterModal
-        isOpen={activeModal === "register"}
-        onClose={closeActiveModal}
-        onRegisterModalSubmit={handleRegisterModalSubmit}
-        handleLogInClick={handleLogInClick}
-      />
-      <LoginModal
-        isOpen={activeModal === "login"}
-        onClose={closeActiveModal}
-        onLoginModalSubmit={handleLoginModalSubmit}
-        handleSignUpClick={handleSignUpClick}
-      />
-      <RegisterSuccessModal
-        isOpen={activeModal === "registerSuccess"}
-        onClose={closeActiveModal}
-        onRegisterModalSubmit={handleRegisterModalSubmit}
-        handleLogInClick={handleLogInClick}
-      />
-    </div>
+    </AppContext.Provider>
   );
 }
 

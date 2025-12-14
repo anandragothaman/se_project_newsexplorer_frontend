@@ -12,7 +12,7 @@ export function getItems() {
         urlToImage:
           "https://s.yimg.com/ny/api/res/1.2/AO5RBYMomqyFL4Z2L01Xmw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD0xMDcx/https://s.yimg.com/os/creatr-uploaded-images/2022-06/1701f760-eb3d-11ec-9fcd-fda7580ab069",
         publishedAt: "2025-11-17T20:31:13Z",
-        keyword: "Bitcoin",
+        keyword: "Crypto",
         content:
           "Bitcoin (BTC-USD) remained under pressure on Monday, falling below $92,000 and bringing its losses from record highs in October to more than 26%. The drop is prompting questions about whether this re… [+2621 chars]",
       },
@@ -27,7 +27,7 @@ export function getItems() {
         urlToImage:
           "https://s.yimg.com/ny/api/res/1.2/nP9MWAAvs3DIXxV21.KpDg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03ODU-/https://media.zenfs.com/en/dlnews_702/3f51b1ead998dbc95e132525f61aecef",
         publishedAt: "2025-12-09T16:45:45Z",
-        keyword: "Bitcoin",
+        keyword: "Crypto",
         content:
           "Standard Chartered just delayed its $500,000 Bitcoin price target by two years.\r\nThe UK-based bank now expects Bitcoin to top half a million per coin by 2030, instead of 2028, citing three structural… [+4218 chars]",
       },
@@ -42,7 +42,7 @@ export function getItems() {
         urlToImage:
           "https://s.yimg.com/ny/api/res/1.2/HWAqOc4zozNaCzo27ld0lA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02NzU-/https://s.yimg.com/os/creatr-uploaded-images/2025-11/3725e170-c58f-11f0-bdd0-7ea65a347265",
         publishedAt: "2025-11-21T20:00:51Z",
-        keyword: "Bitcoin",
+        keyword: "Crypto",
         content:
           "like let's actually talk about how the hybrid works, right? I would imagine obviously, if there's a hybrid and there's a call it 50% draw down on the price of Bitcoin, what does that mean to the inve… [+2987 chars]",
       },

@@ -13,7 +13,7 @@
   line-height: 64px;
 }
 .search-description {
-  font-family: "Roboto Slab Thin";
+  font-family: "Roboto";
   font-size: 18px;
   margin: 0 0 88px 0;
   font-weight: 400;
@@ -62,4 +62,25 @@
 }
 .search-button:active {
   background-color: #2a65cc;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* CSS rules for portrait tablets */
+  .search {
+    max-width: 385px;
+  }
+  .search-title {
+    font-size: 36px;
+    line-height: 40px;
+    margin: 38px 0 16px 0;
+  }
+  .search-input {
+    height: 56px;
+  }
+  .search-button {
+    height: 58px;
+  }
+  .search-description {
+    margin: 0 0 48px 0;
+  }
 }

@@ -17,7 +17,7 @@ function NewsCard({
   }
   return (
     <section className="news-card__section">
-      <div key={article.url} className="news-card__list">
+      <div className="news-card__list">
         <div className="news-card__image-placeholder">
           {isSavedPage && (
             <span className="news-card__keyword">{article.keyword}</span>

@@ -1,7 +1,7 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  font-family: "Roboto Slab Regular";
+  font-family: "Roboto";
   font-weight: 400;
   font-size: 18px;
   line-height: 24px;
@@ -24,4 +24,15 @@
 .footer__copyright a {
   color: #1a1b22;
   text-decoration: none;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .footer {
+    font-size: 16px;
+    line-height: 22px;
+    padding: 20px 40px 20px 40px;
+  }
 }

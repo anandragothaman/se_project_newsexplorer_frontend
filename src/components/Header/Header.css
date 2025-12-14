@@ -22,13 +22,16 @@
 }
 .header__title-link {
   color: #fff;
+  font-family: "Roboto Slab Bold";
+  font-weight: 700;
+  font-size: 20px;
   text-decoration: none;
 }
 
 .header_saved-news {
   background-image: none;
   background-color: #fff;
-  min-height: auto;
+  min-height: auto !important;
 }
 .header_saved-news .header__logo {
   border-bottom: 1px solid #d1d2d6;
@@ -47,4 +50,44 @@
 .header_saved-news .header__auth-button {
   color: #1a1b22;
   border: 1px solid #1a1b22;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* CSS rules for portrait tablets */
+  .header {
+    min-height: 400px;
+  }
+  .header__logo {
+    padding: 0 40px;
+  }
+  .header__title {
+    align-items: center;
+  }
+  .header__nav-list {
+    gap: 32px !important;
+    margin: 0 !important;
+  }
+  .header__nav-link.active {
+    padding: 0 0 24px 0 !important;
+  }
+  .header__auth-button {
+    font-size: 16px !important;
+    padding: 10px 40px 10px 40px !important;
+  }
+  .header__article-details {
+    margin: 0 !important;
+    padding: 24px 0 32px 40px !important;
+    gap: 16px !important;
+  }
+  .header__article-details__title {
+    font-size: 14px !important;
+    line-height: 24px !important;
+    margin: 0;
+  }
+  .header__article-details__saved-count {
+    font-size: 30px !important;
+    line-height: 34px !important;
+    max-width: 336px !important;
+    margin: 16px 0 16px 0 !important;
+  }
 }
