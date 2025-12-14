@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 function Navigation({
   handleLogInClick,
   userName,
-  isLogin,
-  isRegister,
+  isLoginVisible,
+  isRegisterVisible,
   isSavedArticle,
   handleLogOutClick,
 }) {
@@ -18,7 +18,7 @@ function Navigation({
             </NavLink>
           </li>
           <li>
-            {!isLogin && isSavedArticle && (
+            {!isLoginVisible && isSavedArticle && (
               <NavLink to="/saved-news" className="header__nav-link">
                 Saved Articles
               </NavLink>
@@ -26,12 +26,12 @@ function Navigation({
           </li>
         </ul>
       </nav>
-      {isLogin && !isRegister && (
+      {isLoginVisible && (
         <button onClick={handleLogInClick} className="header__auth-button">
           Sign In
         </button>
       )}
-      {isRegister && !isLogin && (
+      {!isLoginVisible && (
         <button onClick={handleLogOutClick} className="header__auth-button">
           {userName} <span className="header__logout-button"></span>
         </button>

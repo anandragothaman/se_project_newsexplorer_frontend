@@ -51,8 +51,8 @@ export default function RegisterModal({
   return (
     <ModalWithForm
       buttonText="Sign up"
-      isLogin={false}
-      isRegister={true}
+      isLoginVisible={false}
+      isRegisterVisible={true}
       isRegisterSuccess={false}
       title="Sign up"
       isOpen={isOpen}

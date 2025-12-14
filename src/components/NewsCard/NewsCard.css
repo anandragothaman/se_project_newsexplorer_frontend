@@ -17,6 +17,10 @@
   flex-wrap: wrap;
   gap: 40px;
 }
+.news-card__link {
+  text-decoration: none;
+  color: #1a1b22;
+}
 .news-card__title {
   font-family: "Roboto Slab Regular";
   font-size: 40px;
@@ -36,6 +40,21 @@
 .news-card__image-placeholder {
   position: relative;
 }
+.news-card__keyword {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  background: #fff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-family: "Roboto Medium";
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+}
 .news-card__image {
   border-radius: 16px 16px 0 0;
   width: 100%;
@@ -46,65 +65,66 @@
   position: absolute;
   right: 24px;
   top: 24px;
-  width: 24px;
+  width: 40px;
   background-color: #fff;
-  height: 24px;
-  padding: 10px 13px;
+  height: 40px;
   border-radius: 8px;
   cursor: pointer;
+  border: none;
 }
 .news-card__bookmark:hover {
   background: url("../../assets/bookmark-hover.svg") no-repeat center;
   position: absolute;
   right: 24px;
   top: 24px;
-  width: 24px;
+  width: 40px;
   background-color: #fff;
-  height: 24px;
-  padding: 10px 13px;
+  height: 40px;
   border-radius: 8px;
   cursor: pointer;
+  border: none;
 }
-.news-card__bookmark:active {
+.news-card__bookmark-active,
+.news-card__bookmark-active:hover {
   background: url("../../assets/bookmark-highlight.svg") no-repeat center;
   position: absolute;
   right: 24px;
   top: 24px;
-  width: 24px;
+  width: 40px;
   background-color: #fff;
-  height: 24px;
-  padding: 10px 13px;
+  height: 40px;
   border-radius: 8px;
-  cursor: pointer;
+  cursor: default;
+  border: none;
 }
 .news-card__delete-bookmark {
   background: url("../../assets/delete.svg") no-repeat center;
   position: absolute;
   right: 24px;
   top: 24px;
-  width: 24px;
+  width: 40px;
   background-color: #fff;
-  height: 24px;
-  padding: 10px 13px;
+  height: 40px;
   border-radius: 8px;
   cursor: pointer;
+  border: none;
 }
 .news-card__delete-bookmark:hover {
   background: url("../../assets/delete-highlight.svg") no-repeat center;
   position: absolute;
   right: 24px;
   top: 24px;
-  width: 24px;
+  width: 40px;
   background-color: #fff;
-  height: 24px;
-  padding: 10px 13px;
+  height: 40px;
   border-radius: 8px;
   cursor: pointer;
+  border: none;
 }
 .news-card__bookmark-tooltip {
   position: absolute;
-  top: 25px;
-  right: 80px;
+  top: 22px;
+  right: 70px;
   background: #fff;
   padding: 15px 20px;
   border-radius: 10px;

@@ -3,8 +3,8 @@ import close from "../../assets/close.svg";
 function ModalWithForm({
   children,
   buttonText,
-  isLogin,
-  isRegister,
+  isLoginVisible,
+  isRegisterVisible,
   isRegisterSuccess,
   title,
   isOpen,
@@ -32,7 +32,7 @@ function ModalWithForm({
               >
                 {buttonText}
               </button>{" "}
-              {isLogin && !isRegister && (
+              {isLoginVisible && !isRegisterVisible && (
                 <p className="modal__login">
                   or{" "}
                   <span
@@ -43,7 +43,7 @@ function ModalWithForm({
                   </span>
                 </p>
               )}
-              {isRegister && !isLogin && (
+              {isRegisterVisible && !isLoginVisible && (
                 <p className="modal__login">
                   or{" "}
                   <span

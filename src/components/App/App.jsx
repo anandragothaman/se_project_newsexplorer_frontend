@@ -1,15 +1,14 @@
+//library imports
 import { useEffect, useState } from "react";
-import "./App.css";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 //component imports
-
-import { Routes, Route, useNavigate } from "react-router-dom";
+import "./App.css";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import About from "../About/About";
 import Footer from "../Footer/Footer";
 import NewsCardList from "../NewsCardList/NewsCardList";
-import NewsCard from "../NewsCard/NewsCard";
 import Preloader from "../Preloader/Preloader";
 import NoData from "../NoData/NoData";
 import LoginModal from "../LoginModal/LoginModal";
@@ -24,25 +23,26 @@ import { getItems, saveArticle, deleteArticle } from "../../utils/api";
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [userName, setUserName] = useState("");
-  const [isLoggingIn, setIsLoggingIn] = useState("");
-  const [isRegistered, setIsRegistered] = useState("");
+  const [isLoginVisible, setIsLoginVisible] = useState("");
+  const [isRegisterVisible, setIsRegisterVisible] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [noResults, setNoResults] = useState(false);
   const [visibleCount, setVisibleCount] = useState(3);
   const [searchArticles, setSearchArticles] = useState([]);
   const visibleArticles = searchArticles.slice(0, visibleCount);
   const [savedArticles, setSavedArticles] = useState([]);
+  const [currentKeyword, setCurrentKeyword] = useState("");
   const navigate = useNavigate();
 
   const handleLogInClick = () => {
     setActiveModal("login");
   };
   const handleLogOutClick = () => {
-    localStorage.removeItem("token");
-    setIsLoggingIn(true);
-    setIsRegistered(false);
-    setUserName("");
     navigate("/");
+    localStorage.removeItem("token");
+    setIsLoginVisible(true);
+    setIsRegisterVisible(true);
+    setUserName("");
   };
   const closeActiveModal = () => {
     setActiveModal("");
@@ -60,16 +60,13 @@ function App() {
         return;
       }
 
-      // save token
       localStorage.setItem("token", res.token);
 
-      // fetch user data
       const userResp = await checkToken(res.token);
       setUserName(userResp.data.name);
 
-      // Update your UI login state
-      setIsLoggingIn(false);
-      setIsRegistered(true);
+      setIsLoginVisible(false);
+      setIsRegisterVisible(true);
 
       closeActiveModal();
     } catch (error) {
@@ -77,7 +74,7 @@ function App() {
     }
   };
 
-  const handleRegisterModalSubmit = ({ email, password, name }) => {
+  const handleRegisterModalSubmit = ({ name }) => {
     try {
       setUserName(name);
       setActiveModal("registerSuccess");
@@ -87,6 +84,7 @@ function App() {
   };
 
   const handleSearch = async (query) => {
+    setCurrentKeyword(query);
     setIsLoading(true);
     setNoResults(false);
 
@@ -112,7 +110,7 @@ function App() {
   };
 
   const handleSaveArticle = async (article) => {
-    if (isLoggingIn) {
+    if (isLoginVisible) {
       setActiveModal("login");
       return;
     }
@@ -126,8 +124,17 @@ function App() {
     }
 
     try {
-      const savedArticle = await saveArticle(article);
-      setSavedArticles((prev) => [...prev, savedArticle]);
+      const savedArticle = await saveArticle({
+        ...article,
+        keyword: currentKeyword,
+      });
+      setSavedArticles((prev) => {
+        // prevent duplicates
+        const exists = prev.some((a) => a.url === savedArticle.url);
+        if (exists) return prev;
+
+        return [...prev, savedArticle];
+      });
     } catch (error) {
       console.error("Failed to save article:", error);
     }
@@ -148,28 +155,28 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      setIsLoggingIn(true);
+      setIsLoginVisible(true);
       return;
     }
 
     checkToken(token)
       .then((res) => {
         setUserName(res.data.name);
-        setIsLoggingIn(false);
-        setIsRegistered(true);
+        setIsLoginVisible(false);
+        setIsRegisterVisible(true);
       })
       .catch(() => {
-        setIsLoggingIn(true);
+        setIsLoginVisible(true);
       });
   }, []);
 
   useEffect(() => {
-    if (!isLoggingIn) {
+    if (!isLoginVisible) {
       getItems().then((items) => {
         setSavedArticles(items);
       });
     }
-  }, [!isLoggingIn]);
+  }, [!isLoginVisible]);
   return (
     <div className="page">
       <div className="page__content">
@@ -182,8 +189,8 @@ function App() {
                   <Header
                     isSavedArticle={savedArticles.length > 0}
                     userName={userName}
-                    isLogin={isLoggingIn}
-                    isRegister={isRegistered}
+                    isLoginVisible={isLoginVisible}
+                    isRegisterVisible={isRegisterVisible}
                     handleLogInClick={handleLogInClick}
                     handleLogOutClick={handleLogOutClick}
                   />
@@ -199,19 +206,14 @@ function App() {
                       <h2 className="news-card__title">Search Results</h2>
                       <NewsCardList
                         articles={visibleArticles}
+                        savedArticles={savedArticles}
+                        searchArticles={searchArticles}
                         isSavedPage={false}
-                        isLogin={isLoggingIn}
+                        isLoginVisible={isLoginVisible}
                         onSave={handleSaveArticle}
                         visibleCount={visibleCount}
+                        setVisibleCount={setVisibleCount}
                       />
-                      {visibleCount < searchArticles.length && (
-                        <button
-                          className="news-card__save-button"
-                          onClick={() => setVisibleCount((prev) => prev + 3)}
-                        >
-                          Show more
-                        </button>
-                      )}
                     </section>
                   )}
                   <About />
@@ -227,13 +229,14 @@ function App() {
                   <Header
                     isSavedArticle={savedArticles.length > 0}
                     userName={userName}
-                    isLogin={isLoggingIn}
-                    isRegister={isRegistered}
+                    isLoginVisible={isLoginVisible}
+                    isRegisterVisible={isRegisterVisible}
                     handleLogInClick={handleLogInClick}
                     handleLogOutClick={handleLogOutClick}
                   />
                   <section className="header__underline">
                     <ArticleDetails
+                      savedArticles={savedArticles}
                       articleCount={savedArticles.length}
                       userName={userName}
                     />
@@ -244,7 +247,7 @@ function App() {
                     <NewsCardList
                       articles={savedArticles}
                       isSavedPage={true}
-                      isLogin={isLoggingIn}
+                      isLoginVisible={isLoginVisible}
                       onDelete={handleDeleteArticle}
                     />
                   </section>
