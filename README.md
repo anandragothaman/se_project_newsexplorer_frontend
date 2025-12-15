@@ -35,6 +35,8 @@ https://github.com/anandragothaman/se_project_newsexplorer_frontend/tree/stage-1
 
 # Link to Pull request
 
+https://github.com/anandragothaman/se_project_newsexplorer_frontend/pull/1
+
 # Link to the deployed ghpages
 
 https://anandragothaman.github.io/se_project_newsexplorer_frontend/
