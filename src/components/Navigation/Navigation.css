@@ -1,4 +1,4 @@
-.header__nav-auth {
+.header__nav {
   display: flex;
   gap: 64px;
 }
@@ -46,11 +46,79 @@
 .header_saved-news .header__logout-button {
   background: url("../../assets/logout.svg") no-repeat;
 }
+.header__nav-mobile {
+  display: none;
+}
 
 @media (min-width: 768px) and (max-width: 1024px) {
   /* CSS rules for portrait tablets */
-  .header__nav-auth {
+  .header__nav {
     gap: 20px;
     align-items: center;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .header__nav {
+    flex-direction: column;
+    gap: 16px;
+    display: none;
+  }
+  .header__nav-list {
+    flex-direction: column;
+    gap: 16px;
+    margin: 16px 0 0 0;
+  }
+  .header__nav-mobile {
+    display: block;
+  }
+  .header__nav-mobile-menu {
+    display: block;
+    background: url("../../assets/menu.svg") no-repeat;
+    width: 24px;
+    height: 24px;
+    border: none;
+  }
+  .header__nav-link {
+    font-family: "Roboto Medium";
+  }
+  .header__nav-mobile-links {
+    position: absolute;
+    left: 0;
+    background: #0000004d;
+    width: 100%;
+    top: 57px;
+    height: 100%;
+    z-index: 10000;
+  }
+  .header__nav-link.active {
+    padding: 0 !important;
+    border: none !important;
+    color: #ffffff !important;
+  }
+  .header__nav-mobile-list {
+    background: #1a1b22;
+    margin: 0;
+    padding: 35px 16px 24px 16px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .header__auth-button {
+    margin: 16px 0 13px 0;
+    width: 100%;
+  }
+  .header_saved-news .header__nav-mobile-menu {
+    background: url("../../assets/menu-dark.svg") no-repeat;
+  }
+  .header_saved-news .header__nav-mobile-list {
+    background: #f6f7f8;
+  }
+  .header_saved-news .header__nav-link.active {
+    color: #1a1b22 !important;
+  }
+  .header_saved-news .header__nav-link {
+    color: #b6bcbf;
   }
 }

@@ -36,16 +36,19 @@ function App() {
   const visibleArticles = searchArticles.slice(0, visibleCount);
   const [savedArticles, setSavedArticles] = useState([]);
   const [currentKeyword, setCurrentKeyword] = useState("");
+  const [isMobileLoginVisible, setIsMobileLoginVisible] = useState(false);
   const navigate = useNavigate();
 
   const handleLogInClick = () => {
     setActiveModal("login");
+    setIsMobileLoginVisible(false);
   };
   const handleLogOutClick = () => {
     navigate("/");
     localStorage.removeItem("token");
     setIsLoginVisible(true);
     setIsRegisterVisible(true);
+    setIsMobileLoginVisible(false);
     setUserName("");
     setIsLoggedIn(false);
     setSavedArticles([]);
@@ -55,6 +58,10 @@ function App() {
   };
   const handleSignUpClick = () => {
     setActiveModal("register");
+  };
+
+  const handleMobileLoginClick = () => {
+    setIsMobileLoginVisible(!isMobileLoginVisible);
   };
 
   const handleLoginModalSubmit = async ({ email, password }) => {
@@ -160,6 +167,7 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (!token) {
       setIsLoginVisible(true);
       setIsLoggedIn(false);
@@ -205,11 +213,12 @@ function App() {
                       isSavedArticle={savedArticles.length > 0}
                       userName={userName}
                       isLoginVisible={isLoginVisible}
-                      isRegisterVisible={isRegisterVisible}
+                      isMobileLoginVisible={isMobileLoginVisible}
                       handleLogInClick={handleLogInClick}
                       handleLogOutClick={handleLogOutClick}
+                      handleMobileLoginClick={handleMobileLoginClick}
                     />
-                    <section className="header__underline">
+                    <section className="header__search">
                       <SearchForm onSearch={handleSearch} />
                     </section>
                   </header>
@@ -245,9 +254,10 @@ function App() {
                       isSavedArticle={savedArticles.length > 0}
                       userName={userName}
                       isLoginVisible={isLoginVisible}
-                      isRegisterVisible={isRegisterVisible}
+                      isMobileLoginVisible={isMobileLoginVisible}
                       handleLogInClick={handleLogInClick}
                       handleLogOutClick={handleLogOutClick}
+                      handleMobileLoginClick={handleMobileLoginClick}
                     />
                     <section className="header__underline">
                       <ArticleDetails

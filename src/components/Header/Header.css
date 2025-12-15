@@ -91,3 +91,21 @@
     margin: 16px 0 16px 0 !important;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .header {
+    min-height: 536px;
+    background-size: cover;
+    width: 100vw;
+    background-position: top center;
+  }
+  .header__title {
+    padding: 0;
+  }
+  .header__title-link {
+    font-size: 16px;
+  }
+  .header__logo {
+    padding: 16px;
+  }
+}

@@ -15,11 +15,11 @@
 }
 .modal__title {
   margin: 0 0 22px 0;
-  font-family: "Roboto Slab Bold";
+  font-family: "Roboto Black";
   font-weight: 900;
   font-size: 24px;
   line-height: 100%;
-  letter-spacing: 0%;
+  letter-spacing: 0;
 }
 .modal__content {
   background-color: #fff;
@@ -100,7 +100,7 @@
   cursor: pointer;
   line-height: 24px;
   padding: 20px 0;
-  font-family: "Roboto Slab Medium";
+  font-family: "Roboto Medium";
   font-weight: 500;
   font-size: 18px;
   background-color: #2f71e5;
@@ -148,4 +148,21 @@
 }
 .modal_error {
   color: red;
+}
+
+@media only screen and (max-width: 600px) {
+  .modal__content {
+    max-width: 100%;
+    padding: 20px;
+    top: 6%;
+    height: 100%;
+    border-radius: 20px 20px 0 0;
+  }
+  .modal__submit {
+    min-width: 100%;
+  }
+  .modal__close {
+    top: -50px;
+    right: 0px;
+  }
 }

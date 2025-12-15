@@ -34,3 +34,21 @@
   letter-spacing: 0px;
   color: #1a1b22;
 }
+
+@media only screen and (max-width: 600px) {
+  .header__article-details {
+    padding: 16px 16px 32px 16px;
+  }
+  .header__article-details__title {
+    margin: 0;
+    font-size: 12px;
+  }
+  .header__article-details__saved-count {
+    margin: 16px 0 50px 0;
+    font-size: 30px;
+    line-height: 34px;
+  }
+  .header__article-details__keywords {
+    margin: 0;
+  }
+}

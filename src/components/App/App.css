@@ -4,7 +4,15 @@
 .page__content {
   max-width: 1440px;
   margin: 0 auto;
+  overflow-x: hidden;
 }
 main {
   background-color: #fff;
+}
+
+@media only screen and (max-width: 600px) {
+  .page__content {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }

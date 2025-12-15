@@ -4,10 +4,11 @@ import Navigation from "../Navigation/Navigation";
 function Header({
   userName,
   isLoginVisible,
-  isRegisterVisible,
+  isMobileLoginVisible,
   handleLogInClick,
   handleLogOutClick,
   isSavedArticle,
+  handleMobileLoginClick,
 }) {
   return (
     <section className="header__logo">
@@ -20,9 +21,10 @@ function Header({
         isSavedArticle={isSavedArticle}
         userName={userName}
         isLoginVisible={isLoginVisible}
-        isRegisterVisible={isRegisterVisible}
+        isMobileLoginVisible={isMobileLoginVisible}
         handleLogOutClick={handleLogOutClick}
         handleLogInClick={handleLogInClick}
+        handleMobileLoginClick={handleMobileLoginClick}
       />
     </section>
   );
