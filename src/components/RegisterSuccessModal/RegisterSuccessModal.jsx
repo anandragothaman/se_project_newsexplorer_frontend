@@ -9,7 +9,7 @@ export default function RegisterModal({
 }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegisterModalSubmit({ email, password, name });
+    onRegisterModalSubmit({ name });
   };
   return (
     <ModalWithForm

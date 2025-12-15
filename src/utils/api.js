@@ -1,5 +1,5 @@
 export function getItems() {
-  return new Promise((resolve, reject) =>
+  return new Promise((resolve) =>
     resolve([
       {
         _id: "65f7368dfb74bd6a92114c81",
@@ -51,7 +51,7 @@ export function getItems() {
 }
 
 export function saveArticle(article) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve({
       _id: crypto.randomUUID(),
       keyword: article.keyword,

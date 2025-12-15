@@ -16,7 +16,7 @@ function NewsCard({
     }).format(date);
   }
   return (
-    <section className="news-card__section">
+    <section className="news-card">
       <div className="news-card__list">
         <div className="news-card__image-placeholder">
           {isSavedPage && (
@@ -24,7 +24,11 @@ function NewsCard({
           )}
 
           <a href={article.url} target="_blank" className="news-card__link">
-            <img className="news-card__image" src={article.urlToImage} />{" "}
+            <img
+              className="news-card__image"
+              alt="card image"
+              src={article.urlToImage}
+            />{" "}
           </a>
           <div className="news-card__bookmark-wrapper">
             {!isSavedPage ? (

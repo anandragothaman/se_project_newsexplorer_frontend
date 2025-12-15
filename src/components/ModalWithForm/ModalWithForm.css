@@ -10,7 +10,7 @@
   align-items: center;
   visibility: hidden;
 }
-.modal_opened {
+.modal__opened {
   visibility: visible;
 }
 .modal__title {
@@ -146,7 +146,7 @@
   cursor: pointer;
   color: #2f71e5;
 }
-.modal_error {
+.modal__error {
   color: red;
 }
 

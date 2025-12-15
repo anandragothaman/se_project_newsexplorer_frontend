@@ -13,7 +13,7 @@ function NewsCardList({
 }) {
   return (
     <>
-      <section className="news-card__container">
+      <section className="news-card-list">
         {articles.map((article) => {
           const isSaved =
             !isSavedPage &&
@@ -34,7 +34,7 @@ function NewsCardList({
       </section>
       {!isSavedPage && visibleCount < searchArticles.length && (
         <button
-          className="news-card__save-button"
+          className="news-card-list__show-more"
           onClick={() => setVisibleCount((prev) => prev + 3)}
         >
           Show more

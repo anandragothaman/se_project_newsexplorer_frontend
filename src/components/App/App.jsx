@@ -26,7 +26,6 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [userName, setUserName] = useState("");
   const [isLoginVisible, setIsLoginVisible] = useState("");
-  const [isRegisterVisible, setIsRegisterVisible] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAuthChecked, setIsAuthChecked] = useState(false);
@@ -47,7 +46,6 @@ function App() {
     navigate("/");
     localStorage.removeItem("token");
     setIsLoginVisible(true);
-    setIsRegisterVisible(true);
     setIsMobileLoginVisible(false);
     setUserName("");
     setIsLoggedIn(false);
@@ -79,7 +77,6 @@ function App() {
       setUserName(userName ? userName : userResp.data.name);
 
       setIsLoginVisible(false);
-      setIsRegisterVisible(true);
       setIsLoggedIn(true);
       closeActiveModal();
     } catch (error) {
@@ -177,9 +174,8 @@ function App() {
 
     checkToken(token)
       .then((res) => {
-        setUserName(userName ? userName : res.data.name);
+        setUserName((prev) => prev || res.data.name);
         setIsLoginVisible(false);
-        setIsRegisterVisible(true);
         setIsLoggedIn(true);
       })
       .catch(() => {
@@ -193,12 +189,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!isLoginVisible) {
+    if (isLoggedIn) {
       getItems().then((items) => {
         setSavedArticles(items);
       });
     }
-  }, [!isLoginVisible]);
+  }, [isLoggedIn]);
   return (
     <AppContext.Provider value={{ isLoggedIn, isAuthChecked }}>
       <div className="page">
@@ -226,8 +222,8 @@ function App() {
                     {isLoading && <Preloader />}
                     {noResults && <NoData />}
                     {!isLoading && !noResults && searchArticles.length > 0 && (
-                      <section className="news-card">
-                        <h2 className="news-card__heading">Search Results</h2>
+                      <section className="news-cards">
+                        <h2 className="news-cards__heading">Search Results</h2>
                         <NewsCardList
                           articles={visibleArticles}
                           savedArticles={savedArticles}
@@ -249,7 +245,7 @@ function App() {
               path="/saved-news"
               element={
                 <ProtectedRoute>
-                  <header className="header header_saved-news">
+                  <header className="header header--saved-news">
                     <Header
                       isSavedArticle={savedArticles.length > 0}
                       userName={userName}
@@ -268,7 +264,7 @@ function App() {
                     </section>
                   </header>
                   <main>
-                    <section className="news-card">
+                    <section className="news-cards">
                       <NewsCardList
                         articles={savedArticles}
                         isSavedPage={true}

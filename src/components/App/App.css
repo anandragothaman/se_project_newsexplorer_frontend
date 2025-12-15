@@ -8,10 +8,36 @@
 main {
   background-color: #fff;
 }
+.news-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  background-color: #f5f6f7;
+  padding: 80px 104px 80px 104px;
+}
+.news-cards__heading {
+  font-family: "Roboto Slab";
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 46px;
+  margin: 0;
+  color: #1a1b22;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .news-card__heading {
+    font-size: 30px;
+    line-height: 34px;
+  }
+}
 
 @media only screen and (max-width: 600px) {
   .page__content {
     width: 100%;
     box-sizing: border-box;
+  }
+  .news-card__heading {
+    font-size: 30px;
+    line-height: 34px;
   }
 }

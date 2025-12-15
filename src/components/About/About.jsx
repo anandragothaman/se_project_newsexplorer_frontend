@@ -1,12 +1,13 @@
-import React from "react";
 import "./About.css";
+import profileImg from "../../assets/profile.jpeg";
 function About() {
   return (
     <section className="author">
       <div className="author__avatar">
         <img
           className="author__avatar-image"
-          src="./../src/assets/profile.jpeg"
+          alt="Author Avatar"
+          src={profileImg}
         />
       </div>
       <div className="author__info">
