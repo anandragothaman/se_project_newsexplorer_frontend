@@ -3,17 +3,26 @@ import "./About.css";
 function About() {
   return (
     <section className="author">
-      <div className="author__avatar"></div>
+      <div className="author__avatar">
+        <img
+          className="author__avatar-image"
+          src="./../src/assets/profile.jpeg"
+        />
+      </div>
       <div className="author__info">
         <h2 className="author__title">About the Author</h2>
         <div className="author__bio">
           <p className="author__description">
-            This block describes the project author. Here you should indicate
-            your name, what you do, and which development technologies you know.
+            I am Anand Ragothaman, a Full Stack Developer specializing in
+            building responsive, user-friendly web applications using modern web
+            technologies such as HTML, CSS, Typescript, React, Node.js, and
+            MongoDB.
           </p>
           <p className="author__description">
-            You can also talk about your experience with TripleTen, what you
-            learned there, and how you can help potential customers.
+            Through TripleTen, I developed strong foundations in modern
+            front-end practices and real-world project development. I enjoy
+            creating clean, intuitive interfaces and continuously improving my
+            skills to deliver high-quality user experiences.
           </p>
         </div>
       </div>

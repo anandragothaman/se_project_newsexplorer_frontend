@@ -3,11 +3,11 @@
   gap: 56px;
   padding: 80px 0 80px 104px;
 }
-.author__avatar {
-  width: 464px;
-  height: 464px;
-  background: #949494;
+.author__avatar-image {
+  width: 464px !important;
+  height: 464px !important;
   border-radius: 50%;
+  object-fit: cover;
 }
 .author__info {
   display: flex;
@@ -40,9 +40,9 @@
     padding: 61px 40px 61px 40px;
     gap: 32px;
   }
-  .author__avatar {
-    width: 232px;
-    height: 232px;
+  .author__avatar-image {
+    width: 232px !important;
+    height: 232px !important;
   }
   .author__title {
     font-size: 30px;
@@ -61,9 +61,9 @@
     padding: 32px 24px 32px 24px;
     gap: 24px;
   }
-  .author__avatar {
-    width: 272px;
-    height: 272px;
+  .author__avatar-image {
+    width: 272px !important;
+    height: 272px !important;
   }
   .author__info {
     width: 100%;

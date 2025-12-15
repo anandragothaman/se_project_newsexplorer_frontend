@@ -14,14 +14,22 @@ function Footer() {
             </Link>
           </li>
           <li>
-            <Link to="/tripleten" className="footer__nav-link">
+            <Link
+              to="https://tripleten.com/"
+              target="_blank"
+              className="footer__nav-link"
+            >
               TripleTen
             </Link>
           </li>
         </ul>
         <ul className="footer__social-media">
           <li>
-            <Link to="/" className="footer__nav-link">
+            <Link
+              to="https://github.com/anandragothaman"
+              target="_blank"
+              className="footer__nav-link"
+            >
               <img
                 src="../../src/assets/github.svg"
                 alt="github avatar"
@@ -30,7 +38,11 @@ function Footer() {
             </Link>
           </li>
           <li>
-            <Link to="/" className="footer__nav-link">
+            <Link
+              to="https://www.linkedin.com/in/anandragothaman/"
+              target="_blank"
+              className="footer__nav-link"
+            >
               <img
                 src="../../src/assets/linkedin.svg"
                 alt="linkedin avatar"
