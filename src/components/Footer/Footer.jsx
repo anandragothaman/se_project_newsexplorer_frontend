@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import githubImg from "../../assets/github.svg";
+import linkedInImg from "../../assets/linkedin.svg";
 import "./Footer.css";
 function Footer() {
   return (
@@ -31,7 +33,7 @@ function Footer() {
               className="footer__nav-link"
             >
               <img
-                src="../../src/assets/github.svg"
+                src={githubImg}
                 alt="github avatar"
                 className="footer__avatar"
               />
@@ -44,7 +46,7 @@ function Footer() {
               className="footer__nav-link"
             >
               <img
-                src="../../src/assets/linkedin.svg"
+                src={linkedInImg}
                 alt="linkedin avatar"
                 className="footer__avatar"
               />
