@@ -32,3 +32,9 @@ Currently, two official plugins are available:
 # Link to Frontend Repo
 
 https://github.com/anandragothaman/se_project_newsexplorer_frontend/tree/stage-1-frontend-and-api
+
+# Link to Pull request
+
+# Link to the deployed ghpages
+
+https://anandragothaman.github.io/se_project_newsexplorer_frontend/
