@@ -46,6 +46,6 @@ https://anandragothaman.github.io/se_project_newsexplorer_frontend/
 The News Explorer API works correctly in local development.
 In production (GitHub Pages), the API requires a paid plan or domain whitelisting, so search requests are blocked. This project is submitted as Stage 1 (frontend), focusing on UI, routing, and API integration logic.
 
-# Link to the project pitch
+# Project pitch video
 
-https://drive.google.com/file/d/1E6_4UQJxlWHnPcZAF4ORYYXueZ78_J8m/view?usp=sharing
+Check out [this video](https://drive.google.com/file/d/1E6_4UQJxlWHnPcZAF4ORYYXueZ78_J8m/view?usp=sharing), where I describe my project and some challenges I faced while building it.
