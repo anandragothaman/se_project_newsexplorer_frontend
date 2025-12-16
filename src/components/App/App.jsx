@@ -139,7 +139,6 @@ function App() {
         keyword: currentKeyword,
       });
       setSavedArticles((prev) => {
-        // prevent duplicates
         const exists = prev.some((a) => a.url === savedArticle.url);
         if (exists) return prev;
 

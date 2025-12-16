@@ -31,12 +31,21 @@ Currently, two official plugins are available:
 
 # Link to Frontend Repo
 
-https://github.com/anandragothaman/se_project_newsexplorer_frontend/tree/stage-1-frontend-and-api
+https://github.com/anandragothaman/se_project_newsexplorer_frontend
 
 # Link to Pull request
 
 https://github.com/anandragothaman/se_project_newsexplorer_frontend/pull/1
 
-# Link to the deployed ghpages
+# Link to the deployed github pages
 
 https://anandragothaman.github.io/se_project_newsexplorer_frontend/
+
+# Note
+
+The News Explorer API works correctly in local development.
+In production (GitHub Pages), the API requires a paid plan or domain whitelisting, so search requests are blocked. This project is submitted as Stage 1 (frontend), focusing on UI, routing, and API integration logic.
+
+# Link to the project pitch
+
+https://drive.google.com/file/d/1E6_4UQJxlWHnPcZAF4ORYYXueZ78_J8m/view?usp=sharing
