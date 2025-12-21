@@ -1,0 +1,114 @@
+.search {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  max-width: 625px;
+  margin: 0 auto;
+}
+.search__title {
+  font-family: "Roboto Slab Regular";
+  font-size: 60px;
+  margin: 80px 0 32px 0;
+  font-weight: 400;
+  line-height: 64px;
+}
+.search__description {
+  font-family: "Roboto";
+  font-size: 18px;
+  margin: 0 0 88px 0;
+  font-weight: 400;
+  line-height: 24px;
+}
+.search__form {
+  position: relative;
+  display: flex;
+}
+.search__input {
+  width: 100%;
+  padding-right: 40px;
+  border-radius: 100px;
+  height: 64px;
+  border: none;
+  padding-left: 24px;
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 400;
+  color: #1a1b22;
+}
+.search__input::placeholder {
+  color: #b6bcbf;
+}
+.search__input:focus {
+  outline: none;
+}
+.search__button {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 100px;
+  height: 66px;
+  background-color: #2f71e5;
+  width: 168px;
+  border: none;
+  cursor: pointer;
+  font-family: "Roboto Slab Regular";
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+}
+.search__button:hover {
+  background-color: #347eff;
+}
+.search__button:active {
+  background-color: #2a65cc;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* CSS rules for portrait tablets */
+  .search {
+    max-width: 385px;
+  }
+  .search__title {
+    font-size: 36px;
+    line-height: 40px;
+    margin: 38px 0 16px 0;
+  }
+  .search__input {
+    height: 56px;
+  }
+  .search__button {
+    height: 58px;
+  }
+  .search__description {
+    margin: 0 0 48px 0;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .search {
+    margin: 0 16px;
+  }
+  .search__title {
+    font-size: 36px;
+    line-height: 40px;
+    margin: 30px 0 16px 0;
+  }
+  .search__form {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .search__input {
+    width: auto;
+    height: 56px;
+  }
+  .search__button {
+    position: static;
+    height: 56px;
+    width: 100%;
+    transform: none;
+  }
+  .search__description {
+    margin: 0 0 122px 0;
+  }
+}

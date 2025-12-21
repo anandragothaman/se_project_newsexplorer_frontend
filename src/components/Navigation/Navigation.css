@@ -1,0 +1,124 @@
+.header__nav {
+  display: flex;
+  gap: 64px;
+}
+.header__nav-list {
+  display: flex;
+  gap: 76px;
+  margin: 32px 0 0 0;
+  list-style: none;
+}
+.header__nav-link {
+  font-family: "Roboto Slab Regular";
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 100%;
+  color: #b6bcbf;
+  text-decoration: none;
+  padding: 0 0 26px 0;
+}
+.header__nav-link.active {
+  border-bottom: 3px solid #ffffff;
+  color: #ffffff;
+  padding: 0 0 26px 0;
+}
+.header__auth-button {
+  font-family: "Roboto Slab Bold";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  color: #ffffff;
+  background: none;
+  border: 1px solid #ffffff;
+  border-radius: 100px;
+  cursor: pointer;
+  padding: 12px 50px 12px 50px;
+  margin: 19px 0 13px 0;
+  position: relative;
+}
+.header__logout-button {
+  background: url("../../assets/logout-light.svg") no-repeat;
+  position: absolute;
+  right: 10px;
+  height: 24px;
+  width: 24px;
+}
+.header--saved-news .header__logout-button {
+  background: url("../../assets/logout.svg") no-repeat;
+}
+.header__nav-mobile {
+  display: none;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* CSS rules for portrait tablets */
+  .header__nav {
+    gap: 20px;
+    align-items: center;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .header__nav {
+    flex-direction: column;
+    gap: 16px;
+    display: none;
+  }
+  .header__nav-list {
+    flex-direction: column;
+    gap: 16px;
+    margin: 16px 0 0 0;
+  }
+  .header__nav-mobile {
+    display: block;
+  }
+  .header__nav-mobile-menu {
+    display: block;
+    background: url("../../assets/menu.svg") no-repeat;
+    width: 24px;
+    height: 24px;
+    border: none;
+  }
+  .header__nav-link {
+    font-family: "Roboto Medium";
+  }
+  .header__nav-mobile-links {
+    position: absolute;
+    left: 0;
+    background: #0000004d;
+    width: 100%;
+    top: 57px;
+    height: 100%;
+    z-index: 10000;
+  }
+  .header__nav-link.active {
+    padding: 0 !important;
+    border: none !important;
+    color: #ffffff !important;
+  }
+  .header__nav-mobile-list {
+    background: #1a1b22;
+    margin: 0;
+    padding: 35px 16px 24px 16px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .header__auth-button {
+    margin: 16px 0 13px 0;
+    width: 100%;
+  }
+  .header--saved-news .header__nav-mobile-menu {
+    background: url("../../assets/menu-dark.svg") no-repeat;
+  }
+  .header--saved-news .header__nav-mobile-list {
+    background: #f6f7f8;
+  }
+  .header--saved-news .header__nav-link.active {
+    color: #1a1b22 !important;
+  }
+  .header--saved-news .header__nav-link {
+    color: #b6bcbf;
+  }
+}

@@ -1,0 +1,33 @@
+.preloader {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: #f5f6f7;
+  padding: 80px 0;
+}
+.preloader__spinner {
+  width: 50px;
+  height: 50px;
+  border: 1px solid lightgray;
+  border-top: 1px solid gray;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.preloader__text {
+  margin-top: 24px;
+  font-family: "Roboto Slab Light";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #6c707a;
+}
