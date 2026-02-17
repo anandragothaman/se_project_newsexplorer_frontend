@@ -100,7 +100,7 @@ function App() {
 
     try {
       const response = await fetch(
-        `https://newsapi.org/v2/everything?q=${query}&apiKey=bab9d4b072044898a173155e41c12cbe`
+        `https://se-project-newsexplorer-backend.onrender.com/api/news?q=${query}`
       );
 
       const data = await response.json();
